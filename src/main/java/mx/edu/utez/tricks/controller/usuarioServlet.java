@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import mx.edu.utez.tricks.dao.usuarioDao;
-import mx.edu.utez.tricks.model.usuario;
+import mx.edu.utez.tricks.model.Usuario;
 
 import java.io.IOException;
 
@@ -21,7 +21,7 @@ public class usuarioServlet extends HttpServlet {
         String nombre = req.getParameter("username");
         String contra = req.getParameter("password");
         usuarioDao dao = new usuarioDao();
-       usuario usr = dao.getOne(nombre,contra);
+       Usuario usr = dao.getOne(nombre,contra);
 
         HttpSession session = req.getSession();
         // si el usuario esta vacío,

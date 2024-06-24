@@ -1,6 +1,6 @@
 package mx.edu.utez.tricks.dao;
 
-import mx.edu.utez.tricks.model.usuario;
+import mx.edu.utez.tricks.model.Usuario;
 import mx.edu.utez.tricks.utils.DatabaseConnectionManager;
 
 import java.sql.Connection;
@@ -12,9 +12,9 @@ public class usuarioDao {
     // CRUD para usuario
     // Read para un usuario
 
-    public usuario getOne(String nombre, String contra){
+    public Usuario getOne(String nombre, String contra){
         //Crea una instancia vacía de la clase usuario para almacenar los datos del usuario encontrado.
-        usuario usuario = new usuario();
+        Usuario usuario = new Usuario();
 
         String query = "select * from usuarios where mail = ? and contrasena = ?;";
         try {
