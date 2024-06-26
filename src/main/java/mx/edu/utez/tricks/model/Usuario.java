@@ -8,6 +8,7 @@ public class Usuario {
     private String telefono;
     private  String fechaNacimiento;
     private String contra;
+    private Boolean estado;
 
     public Usuario() {
     }
@@ -65,6 +66,18 @@ public class Usuario {
     }
     public void setId_usuario(int id_usuario) {
         this.id_usuario = id_usuario;
+    }
+
+    public Boolean Estado() {
+        return estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
+    }
+
+    public boolean isEstado() {
+        return false;
     }
 }
 
