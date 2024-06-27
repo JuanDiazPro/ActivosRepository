@@ -9,8 +9,6 @@
 <%@ page import="mx.edu.utez.tricks.dao.UsuarioDao" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="mx.edu.utez.tricks.model.Usuario" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 
 <html>
 <head>
@@ -28,7 +26,7 @@
     <aside id="sidebar">
         <div class="d-flex">
             <button class="toggle-btn" type="button">
-                <img src="img/logo.svg" alt="Toggle">
+                <img src="../img_svg/logo.svg" alt="Toggle">
             </button>
             <div class="sidebar-logo">
                 <a href="#">TRICKS</a>
@@ -90,14 +88,13 @@
                     <input type="text" id="filterName" class="form-control" placeholder="Buscar por nombre">
                 </div>
                 <div class="col-md-3">
-                    <select class="custom-select" required>
+                    <select id="filterState" class="custom-select" required>
                         <option value="">Estado</option>
                         <option value="1">Activo</option>
-                        <option value="2">Inactivo</option>
+                        <option value="0">Inactivo</option>
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <!-- con esa configuracion se trae el nodal -->
                     <button type="button" class="btn btnIcono w-100" data-toggle="modal" data-target="#registrarGrupo">
                         Registrar Maestro
                     </button>
@@ -113,22 +110,26 @@
                         <th>Correo</th>
                         <th>Estado</th>
                         <th>Modificar</th>
-                        <th>Eliminar</th>
                     </tr>
                     </thead>
                     <tbody id="aspirantesTableBody">
                     <%
                         UsuarioDao dao = new UsuarioDao();
                         ArrayList<Usuario> lista = dao.getAll();
-                        for(Usuario u : lista){
+                        for (Usuario u : lista) {
                     %>
                     <tr>
-                        <td><%=u.getId_usuario()%></td>
-                        <td><%=u.getNombre()%></td>
-                        <td><%=u.getMail()%></td>
-                        <td><%=u.isEstado() ? "Habilitado":"Deshabilitado"%></td>
-                        <td><a href="sign_in?id=<%=u.getId_usuario()%>">Actualizar</a></td>
-                        <td><a>Eliminar</a></td>
+                        <td><%= u.getId_usuario() %></td>
+                        <td><%= u.getNombre() %></td>
+                        <td><%= u.getMail() %></td>
+                        <td><%= u.isEstado() ? "Activo" : "Inactivo" %></td>
+                        <td>
+                            <button class="btn btnIcono btn-modificar" data-toggle="modal"
+                                    data-target="#modificarGrupo" data-whatever="Modificar"
+                                    onclick="window.location.href='sign_in?id=<%= u.getId_usuario() %>'">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </td>
                     </tr>
                     <% } %>
                     </tbody>
@@ -173,18 +174,15 @@
                 <form action="" method="">
                     <div class="form-group">
                         <label for="asignarGrupo" class="col-form-label">Nombre:</label>
-                        <input type="text" class="form-control" id="asignarGrupo"
-                               placeholder="Introduce el nombre del grupo">
+                        <input type="text" class="form-control" id="asignarGrupo" placeholder="Introduce el nombre del grupo">
                     </div>
                     <div class="form-group">
                         <label for="asignarGrupo" class="col-form-label">Apellido:</label>
-                        <input type="text" class="form-control" id="asignarGrupo"
-                               placeholder="Introduce el apellido del grupo">
+                        <input type="text" class="form-control" id="asignarGrupo" placeholder="Introduce el apellido del grupo">
                     </div>
                     <div class="form-group">
                         <label for="asignarGrupo" class="col-form-label">Correo Electronico:</label>
-                        <input type="text" class="form-control" id="asignarGrupo"
-                               placeholder="Introduce el correo lectronico del docente">
+                        <input type="text" class="form-control" id="asignarGrupo" placeholder="Introduce el correo electronico del docente">
                     </div>
                 </form>
             </div>
@@ -201,32 +199,28 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modificar datos del docente</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Modificar datos</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form action="" method="">
                     <div class="form-group">
-                        <label for="asignarGrupo" class="col-form-label">Nombre:</label>
-                        <input type="text" class="form-control" id="asignarGrupo" value="Mauro" disabled>
+                        <label for="recipient-name" class="col-form-label">Nombre:</label>
+                        <input type="text" class="form-control" id="recipient-name">
                     </div>
                     <div class="form-group">
-                        <label for="asignarGrupo" class="col-form-label">Apellido:</label>
-                        <input type="text" class="form-control" id="asignarGrupo" value="castro">
+                        <label for="recipient-name" class="col-form-label">Apellido:</label>
+                        <input type="text" class="form-control" id="recipient-name">
                     </div>
                     <div class="form-group">
-                        <label for="asignarGrupo" class="col-form-label">Correo electronico:</label>
-                        <input type="text" class="form-control" id="asignarGrupo" value="ejemplo@gmail.com">
+                        <label for="recipient-name" class="col-form-label">Correo Electronico:</label>
+                        <input type="text" class="form-control" id="recipient-name">
                     </div>
                     <div class="form-group">
-                        <label for="asignarGrupo" class="col-form-label">Estado</label>
-                        <select class="custom-select" required>
-                            <option value="">Selecciona estado</option>
-                            <option value="1">Activo</option>
-                            <option value="2">Inactivo</option>
-                        </select>
+                        <label for="recipient-name" class="col-form-label">Estado:</label>
+                        <input type="text" class="form-control" id="recipient-name">
                     </div>
                 </form>
             </div>
@@ -237,23 +231,41 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath}../JS/jquery-3.7.0.js"></script>
-<script src="${pageContext.request.contextPath}../JS/bootstrap.js"></script>
-<script src="${pageContext.request.contextPath}../JS/datatables.js"></script>
-<script src="${pageContext.request.contextPath}../JS/dataTables.bootstrap5.js"></script>
-<script src="${pageContext.request.contextPath}../JS/es-MX.json"></script>
+<!-- Script de la tabla de docentes -->
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const table = document.getElementById('example');
-        new DataTable(table, {
-            language: {
-                url: '${pageContext.request.contextPath}/JS/es-MX.json'
+    document.addEventListener('DOMContentLoaded', function () {
+        var filterName = document.getElementById('filterName');
+        var filterState = document.getElementById('filterState');
+
+        filterName.addEventListener('input', filterTable);
+        filterState.addEventListener('change', filterTable);
+
+        function filterTable() {
+            var filterNameValue = filterName.value.toLowerCase();
+            var filterStateValue = filterState.value;
+            var table = document.getElementById('example');
+            var rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+            for (var i = 0; i < rows.length; i++) {
+                var cells = rows[i].getElementsByTagName('td');
+                var name = cells[1].textContent.toLowerCase();
+                var state = cells[3].textContent.toLowerCase();
+                var stateValue = (filterStateValue === '1') ? 'activo' : (filterStateValue === '0') ? 'inactivo' : '';
+
+                if ((name.indexOf(filterNameValue) > -1 || filterNameValue === '') &&
+                    (state.indexOf(stateValue) > -1 || filterStateValue === '')) {
+                    rows[i].style.display = '';
+                } else {
+                    rows[i].style.display = 'none';
+                }
             }
-        });
+        }
     });
+
 </script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="../js/script.js"></script>
 </body>
 </html>

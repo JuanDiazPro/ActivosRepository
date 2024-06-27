@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class UsuarioDao {
-    // CRUD para usuario
     // Read para un usuario
 
     public Usuario getOne(String nombre, String contra){
@@ -40,8 +39,6 @@ public class UsuarioDao {
 
 
     //CRUD para usuario
-    //Read para un usuario
-
 
     //Primera parte de modificar usuario
     public Usuario getOne(int id){
