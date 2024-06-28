@@ -64,8 +64,6 @@ CREATE TABLE IF NOT EXISTS `tricks`.`usuarios` (
   `apellido` VARCHAR(50) NOT NULL,
   `mail` VARCHAR(50) NOT NULL,
   `contrasena` VARCHAR(255) NOT NULL,
-  `telefono` VARCHAR(45) NULL DEFAULT NULL,
-  `fecha_nacimiento` DATETIME NULL DEFAULT NULL,
   `id_estado` INT NULL DEFAULT NULL,
   `id_rol` INT NULL DEFAULT NULL,
   `asistencias_id_asistencia` INT NULL DEFAULT NULL,
@@ -121,9 +119,7 @@ CREATE TABLE IF NOT EXISTS `tricks`.`aspirante` (
   INDEX `fk_aspirante_estado1_idx` (`estado_id_estado` ASC) VISIBLE,
   CONSTRAINT `fk_aspirante_estado1`
     FOREIGN KEY (`estado_id_estado`)
-    REFERENCES `tricks`.`estado` (`id_estado`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `tricks`.`estado` (`id_estado`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -140,9 +136,7 @@ CREATE TABLE IF NOT EXISTS `tricks`.`calificaciones` (
   INDEX `fk_calificaciones_aspirante1_idx` (`aspirante_folio_aspirante` ASC) VISIBLE,
   CONSTRAINT `fk_calificaciones_aspirante1`
     FOREIGN KEY (`aspirante_folio_aspirante`)
-    REFERENCES `tricks`.`aspirante` (`folio_aspirante`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `tricks`.`aspirante` (`folio_aspirante`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;

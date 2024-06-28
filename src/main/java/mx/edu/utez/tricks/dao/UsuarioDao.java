@@ -54,7 +54,7 @@ public class UsuarioDao {
                 usuario.setNombre(rs.getString("nombre"));
                 usuario.setContra(rs.getString("contra"));
                 usuario.setMail(rs.getString("correo"));
-                usuario.setEstado(rs.getBoolean("estado"));
+                usuario.setEstado(rs.getString("estado"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -85,7 +85,9 @@ public class UsuarioDao {
     //esto se usa para mostra los datos en la tabla
     public ArrayList<Usuario> getAll(){
         ArrayList<Usuario> lista = new ArrayList<>();
-        String query = "select * from usuarios";
+        //el id_rol = 2 segun la bd corresponde solo a los docentes
+       //se usa en procedimieno almacenado la sigiente consulata
+        String query = "{ CALL verUsuarios(2)}";
         try{
             Connection con = DatabaseConnectionManager.getConnection();
             PreparedStatement ps = con.prepareStatement(query);
@@ -94,10 +96,12 @@ public class UsuarioDao {
                 Usuario u = new Usuario();
                 //los parametros que se le dan a estos gets tienen  que ser los mismos que como estan na la bd
                 u.setId_usuario(rs.getInt("id_usuario"));
-                u.setNombre(rs.getString("nombre"));
-                u.setContra(rs.getString("contrasena"));
+                //en el procedimiento almacenado se concatena el nombre y el apellido
+                //por esta razon puse nombre completo como identificador
+                u.setNombre(rs.getString("nombre_completo"));
+               u.setContra(rs.getString("contrasena"));
                 u.setMail(rs.getString("mail"));
-                u.setEstado(rs.getBoolean("id_estado"));
+                u.setEstado(rs.getString("estado"));
                 lista.add(u);
             }
         }catch(SQLException e){

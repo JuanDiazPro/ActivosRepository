@@ -122,7 +122,7 @@
                         <td><%= u.getId_usuario() %></td>
                         <td><%= u.getNombre() %></td>
                         <td><%= u.getMail() %></td>
-                        <td><%= u.isEstado() ? "Activo" : "Inactivo" %></td>
+                        <td><%= u.Estado() %></td>
                         <td>
                             <button class="btn btnIcono btn-modificar" data-toggle="modal"
                                     data-target="#modificarGrupo" data-whatever="Modificar"
