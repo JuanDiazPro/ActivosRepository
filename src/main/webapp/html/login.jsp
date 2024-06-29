@@ -67,8 +67,7 @@
                 <label class="form-check-label text-white mr-3" for="remember-me">Visualizar</label>
             </div>
             <button type="submit" class="btn btn-primary btn-block w-60">Acceder</button><br>
-            <div class="container d-flex align-items-center justify-content-center"><a href="">¿Olvidate tu
-                contraseña?</a></div>
+            <div class="container d-flex align-items-center justify-content-center"><a href="" style="color: white;">¿Olvidaste tu contraseña?</a></div>
         </form>
     </div>
 
