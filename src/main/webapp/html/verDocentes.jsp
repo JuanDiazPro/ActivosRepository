@@ -234,23 +234,23 @@
 <!-- Script de la tabla de docentes -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        var filterName = document.getElementById('filterName');
-        var filterState = document.getElementById('filterState');
+        let filterName = document.getElementById('filterName');
+        let filterState = document.getElementById('filterState');
 
         filterName.addEventListener('input', filterTable);
         filterState.addEventListener('change', filterTable);
 
         function filterTable() {
-            var filterNameValue = filterName.value.toLowerCase();
-            var filterStateValue = filterState.value;
-            var table = document.getElementById('example');
-            var rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+            let filterNameValue = filterName.value.toLowerCase();
+            let filterStateValue = filterState.value;
+            let table = document.getElementById('example');
+            let rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
 
-            for (var i = 0; i < rows.length; i++) {
-                var cells = rows[i].getElementsByTagName('td');
-                var name = cells[1].textContent.toLowerCase();
-                var state = cells[3].textContent.toLowerCase();
-                var stateValue = (filterStateValue === '1') ? 'activo' : (filterStateValue === '0') ? 'inactivo' : '';
+            for (let i = 0; i < rows.length; i++) {
+                let cells = rows[i].getElementsByTagName('td');
+                let name = cells[1].textContent.toLowerCase();
+                let state = cells[3].textContent.toLowerCase();
+                let stateValue = (filterStateValue === '1') ? 'activo' : (filterStateValue === '0') ? 'inactivo' : '';
 
                 if ((name.indexOf(filterNameValue) > -1 || filterNameValue === '') &&
                     (state.indexOf(stateValue) > -1 || filterStateValue === '')) {
