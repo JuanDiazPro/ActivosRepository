@@ -5,9 +5,8 @@ public class Usuario {
     private String nombre;
     private  String apellido;
     private String mail;
-    private String telefono;
-    private  String fechaNacimiento;
     private String contra;
+    private String estado;
 
     public Usuario() {
     }
@@ -32,8 +31,8 @@ public class Usuario {
         this.nombre = nombre;
         this.apellido = apellido;
         this.mail = mail;
-        this.telefono = telefono;
-        this.fechaNacimiento = fechaNacimiento;
+//        this.telefono = telefono;
+//        this.fechaNacimiento = fechaNacimiento;
         this.contra = contra;
     }
     public String getApellido() {
@@ -48,23 +47,24 @@ public class Usuario {
     public void setMail(String mail) {
         this.mail = mail;
     }
-    public String getTelefono() {
-        return telefono;
-    }
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-    public String getFechaNacimiento() {
-        return fechaNacimiento;
-    }
-    public void setFechaNacimiento(String fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
     public int getId_usuario() {
         return id_usuario;
     }
     public void setId_usuario(int id_usuario) {
         this.id_usuario = id_usuario;
+    }
+
+    public String Estado() {
+        return estado;
+    }
+
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }
 
