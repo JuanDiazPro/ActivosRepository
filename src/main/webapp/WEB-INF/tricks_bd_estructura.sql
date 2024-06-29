@@ -22,10 +22,12 @@ USE `tricks` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `tricks`.`divisiones_academicas` (
                                                                 `id_division` INT NOT NULL AUTO_INCREMENT,
-                                                                `nombre_division` VARCHAR(50) NOT NULL,
+                                                                `nombre_division` VARCHAR(61) NOT NULL,
     `coordinador_division` VARCHAR(45) NULL DEFAULT NULL,
+    `siglas` VARCHAR(45) NULL DEFAULT NULL,
     PRIMARY KEY (`id_division`))
     ENGINE = InnoDB
+    AUTO_INCREMENT = 17
     DEFAULT CHARACTER SET = utf8mb4
     COLLATE = utf8mb4_0900_ai_ci;
 
@@ -41,9 +43,7 @@ CREATE TABLE IF NOT EXISTS `tricks`.`grupos` (
     INDEX `fk_grupos_divisiones_academicas1_idx` (`divisiones_academicas_id_division` ASC) VISIBLE,
     CONSTRAINT `fk_grupos_divisiones_academicas1`
     FOREIGN KEY (`divisiones_academicas_id_division`)
-    REFERENCES `tricks`.`divisiones_academicas` (`id_division`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `tricks`.`divisiones_academicas` (`id_division`))
     ENGINE = InnoDB
     DEFAULT CHARACTER SET = utf8mb4
     COLLATE = utf8mb4_0900_ai_ci;
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `tricks`.`usuarios` (
     FOREIGN KEY (`id_rol`)
     REFERENCES `tricks`.`tipousuario` (`id_rol`))
     ENGINE = InnoDB
-    AUTO_INCREMENT = 22
+    AUTO_INCREMENT = 148
     DEFAULT CHARACTER SET = utf8mb4
     COLLATE = utf8mb4_0900_ai_ci;
 
@@ -169,17 +169,13 @@ CREATE TABLE IF NOT EXISTS `tricks`.`carreras` (
                                                    `id_carrera` INT NOT NULL AUTO_INCREMENT,
                                                    `nombre_carrera` VARCHAR(100) NOT NULL,
     `divisiones_academicas_id_division` INT NOT NULL,
-    `usuarios_id_usuario` INT NOT NULL,
     PRIMARY KEY (`id_carrera`),
     INDEX `fk_carreras_divisiones_academicas1_idx` (`divisiones_academicas_id_division` ASC) VISIBLE,
-    INDEX `fk_carreras_usuarios1_idx` (`usuarios_id_usuario` ASC) VISIBLE,
     CONSTRAINT `fk_carreras_divisiones_academicas1`
     FOREIGN KEY (`divisiones_academicas_id_division`)
-    REFERENCES `tricks`.`divisiones_academicas` (`id_division`),
-    CONSTRAINT `fk_carreras_usuarios1`
-    FOREIGN KEY (`usuarios_id_usuario`)
-    REFERENCES `tricks`.`usuarios` (`id_usuario`))
+    REFERENCES `tricks`.`divisiones_academicas` (`id_division`))
     ENGINE = InnoDB
+    AUTO_INCREMENT = 13
     DEFAULT CHARACTER SET = utf8mb4
     COLLATE = utf8mb4_0900_ai_ci;
 
@@ -200,6 +196,27 @@ CREATE TABLE IF NOT EXISTS `tricks`.`cursos` (
     DEFAULT CHARACTER SET = utf8mb4
     COLLATE = utf8mb4_0900_ai_ci;
 
+USE `tricks` ;
+
+-- -----------------------------------------------------
+-- procedure verUsuarios
+-- -----------------------------------------------------
+
+DELIMITER $$
+USE `tricks`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `verUsuarios`(
+    IN new_id_rol INT  -- Parámetro de entrada para el nuevo id_rol
+)
+BEGIN
+SELECT u.id_usuario, CONCAT(u.nombre, ' ', u.apellido) AS nombre_completo, u.contrasena, u.mail, e.estado
+FROM usuarios u
+         INNER JOIN estado e ON e.id_estado = u.id_estado
+WHERE u.id_rol = new_id_rol
+GROUP BY u.id_usuario
+ORDER BY u.id_usuario ASC;
+END$$
+
+DELIMITER ;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
