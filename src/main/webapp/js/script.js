@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // Paginación
-  const registrosPorPagina = 5;
+  const registrosPorPagina = 10;
   let paginaActual = 1;
   const rows = document.querySelectorAll('#aspirantesTableBody tr');
   const totalPaginas = Math.ceil(rows.length / registrosPorPagina);

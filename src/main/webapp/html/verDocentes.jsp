@@ -10,7 +10,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="mx.edu.utez.tricks.model.Usuario" %>
 
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -90,8 +90,8 @@
                 <div class="col-md-3">
                     <select id="filterState" class="custom-select" required>
                         <option value="">Estado</option>
-                        <option value="1">Activo</option>
-                        <option value="0">Inactivo</option>
+                        <option value="Activo">Activo</option>
+                        <option value="NoActivo">No Activo</option>
                     </select>
                 </div>
                 <div class="col-md-3">
@@ -118,13 +118,14 @@
                         ArrayList<Usuario> lista = dao.getAll();
                         for (Usuario u : lista) {
                     %>
-                    <tr>
-                        <td><%= u.getId_usuario() %></td>
-                        <td><%= u.getNombre() %></td>
-                        <td><%= u.getMail() %></td>
-                        <td><%= u.Estado() %></td>
-                        <td>
+                    <tr style="height: 20px; font-size: 15px">
+                        <td style="padding: 0; margin: 0" ><%= u.getId_usuario() %></td>
+                        <td style="padding: 0; margin: 0"  > <%= u.getNombre() %></td>
+                        <td style="padding: 0; margin: 0"  ><%= u.getMail() %></td>
+                        <td style="padding: 0; margin: 0"  ><%= u.Estado() %></td>
+                        <td  style="padding: 0; margin: 0" >
                             <button class="btn btnIcono btn-modificar" data-toggle="modal"
+                                    style="height: 25px; font-size: 15px; margin: 5px; width: 25px"
                                     data-target="#modificarGrupo" data-whatever="Modificar"
                                     onclick="window.location.href='sign_in?id=<%= u.getId_usuario() %>'">
                                 <i class="fas fa-edit"></i>
@@ -234,26 +235,26 @@
 <!-- Script de la tabla de docentes -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        let filterName = document.getElementById('filterName');
-        let filterState = document.getElementById('filterState');
+        var filterName = document.getElementById('filterName');
+        var filterState = document.getElementById('filterState');
 
         filterName.addEventListener('input', filterTable);
         filterState.addEventListener('change', filterTable);
 
         function filterTable() {
-            let filterNameValue = filterName.value.toLowerCase();
-            let filterStateValue = filterState.value;
-            let table = document.getElementById('example');
-            let rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+            var filterNameValue = filterName.value.trim().toLowerCase();
+            var filterStateValue = filterState.value.trim().toLowerCase();
+            var table = document.getElementById('example');
+            var rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
 
             for (let i = 0; i < rows.length; i++) {
                 let cells = rows[i].getElementsByTagName('td');
                 let name = cells[1].textContent.toLowerCase();
-                let state = cells[3].textContent.toLowerCase();
-                let stateValue = (filterStateValue === '1') ? 'activo' : (filterStateValue === '0') ? 'inactivo' : '';
+                let state = cells[3].textContent.trim().toLowerCase();  // Asegura que no haya espacios en blanco alrededor del texto del estado
 
+                // Mostrar u ocultar la fila basada en los filtros
                 if ((name.indexOf(filterNameValue) > -1 || filterNameValue === '') &&
-                    (state.indexOf(stateValue) > -1 || filterStateValue === '')) {
+                    (filterStateValue === '' || state === filterStateValue)) {
                     rows[i].style.display = '';
                 } else {
                     rows[i].style.display = 'none';
@@ -261,7 +262,6 @@
             }
         }
     });
-
 </script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
