@@ -1,223 +1,117 @@
--- MySQL Workbench Forward Engineering
+-- Create tables
+create database tricks;
+use tricks;
+CREATE TABLE asistencias (
+                             id_asistencia INT PRIMARY KEY,
+                             fecha DATE,
+                             presente VARCHAR(10),
+                             aspirante_folio_aspirante VARCHAR(10)
+);
 
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+CREATE TABLE calificaciones (
+                                id_calificacion INT PRIMARY KEY,
+                                calificacion FLOAT,
+                                aspirante_folio_aspirante VARCHAR(10)
+);
 
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
--- -----------------------------------------------------
--- Schema tricks
--- -----------------------------------------------------
+CREATE TABLE aspirante (
+                           folio_aspirante VARCHAR(10) PRIMARY KEY,
+                           nombre VARCHAR(50),
+                           apellido VARCHAR(50),
+                           curp VARCHAR(25),
+                           estado_id_estado INT,
+                           fecha_nac DATETIME,
+                           grupos_id_grupo INT
+);
 
--- -----------------------------------------------------
--- Schema tricks
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `tricks` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
-USE `tricks` ;
+CREATE TABLE divisiones_academicas (
+                                       id_division INT PRIMARY KEY,
+                                       nombre_division VARCHAR(61),
+                                       coordinador_division VARCHAR(45),
+                                       siglas VARCHAR(45),
+                                       estado_id_estado INT
+);
 
--- -----------------------------------------------------
--- Table `tricks`.`divisiones_academicas`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tricks`.`divisiones_academicas` (
-                                                                `id_division` INT NOT NULL AUTO_INCREMENT,
-                                                                `nombre_division` VARCHAR(61) NOT NULL,
-    `coordinador_division` VARCHAR(45) NULL DEFAULT NULL,
-    `siglas` VARCHAR(45) NULL DEFAULT NULL,
-    PRIMARY KEY (`id_division`))
-    ENGINE = InnoDB
-    AUTO_INCREMENT = 17
-    DEFAULT CHARACTER SET = utf8mb4
-    COLLATE = utf8mb4_0900_ai_ci;
+CREATE TABLE estado (
+                        id_estado INT PRIMARY KEY,
+                        estado VARCHAR(45)
+);
 
+CREATE TABLE grupos (
+                        id_grupo INT PRIMARY KEY,
+                        nombre_grupo VARCHAR(100),
+                        carreras_id_carrera INT,
+                        estado_id_estado INT
+);
 
--- -----------------------------------------------------
--- Table `tricks`.`grupos`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tricks`.`grupos` (
-                                                 `id_grupo` INT NOT NULL AUTO_INCREMENT,
-                                                 `nombre_grupo` VARCHAR(100) NOT NULL,
-    `divisiones_academicas_id_division` INT NOT NULL,
-    PRIMARY KEY (`id_grupo`),
-    INDEX `fk_grupos_divisiones_academicas1_idx` (`divisiones_academicas_id_division` ASC) VISIBLE,
-    CONSTRAINT `fk_grupos_divisiones_academicas1`
-    FOREIGN KEY (`divisiones_academicas_id_division`)
-    REFERENCES `tricks`.`divisiones_academicas` (`id_division`))
-    ENGINE = InnoDB
-    DEFAULT CHARACTER SET = utf8mb4
-    COLLATE = utf8mb4_0900_ai_ci;
+CREATE TABLE carreras (
+                          id_carrera INT PRIMARY KEY,
+                          nombre_carrera VARCHAR(100),
+                          divisiones_academicas_id_division INT,
+                          estado_id_estado INT
+);
 
+CREATE TABLE cursos (
+                        id_curso INT PRIMARY KEY,
+                        nombre VARCHAR(45),
+                        id_docente INT,
+                        estado_id_estado INT
+);
 
--- -----------------------------------------------------
--- Table `tricks`.`estado`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tricks`.`estado` (
-                                                 `id_estado` INT NOT NULL AUTO_INCREMENT,
-                                                 `estado` VARCHAR(45) NOT NULL,
-    PRIMARY KEY (`id_estado`))
-    ENGINE = InnoDB
-    AUTO_INCREMENT = 3
-    DEFAULT CHARACTER SET = utf8mb4
-    COLLATE = utf8mb4_0900_ai_ci;
+CREATE TABLE usuarios (
+                          id_usuario INT PRIMARY KEY,
+                          nombre VARCHAR(50),
+                          apellido VARCHAR(50),
+                          mail VARCHAR(50),
+                          contrasena VARCHAR(255),
+                          id_estado INT,
+                          id_rol INT,
+                          grupos_id_grupo INT
+);
 
+CREATE TABLE tipousuario (
+                             id_rol INT PRIMARY KEY,
+                             tipoUsuarioRol VARCHAR(45)
+);
 
--- -----------------------------------------------------
--- Table `tricks`.`tipousuario`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tricks`.`tipousuario` (
-                                                      `id_rol` INT NOT NULL AUTO_INCREMENT,
-                                                      `tpoUsuarioRol` VARCHAR(45) NOT NULL,
-    PRIMARY KEY (`id_rol`))
-    ENGINE = InnoDB
-    AUTO_INCREMENT = 4
-    DEFAULT CHARACTER SET = utf8mb4
-    COLLATE = utf8mb4_0900_ai_ci;
+CREATE TABLE Historial (
+                           id_historial INT PRIMARY KEY,
+                           descripcion VARCHAR(100),
+                           fecha DATETIME,
+                           usuarios_id_usuario INT
+);
 
+-- Add foreign key constraints
 
--- -----------------------------------------------------
--- Table `tricks`.`usuarios`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tricks`.`usuarios` (
-                                                   `id_usuario` INT NOT NULL AUTO_INCREMENT,
-                                                   `nombre` VARCHAR(50) NULL DEFAULT NULL,
-    `apellido` VARCHAR(50) NOT NULL,
-    `mail` VARCHAR(50) NOT NULL,
-    `contrasena` VARCHAR(255) NOT NULL,
-    `id_estado` INT NULL DEFAULT NULL,
-    `id_rol` INT NULL DEFAULT NULL,
-    `asistencias_id_asistencia` INT NULL DEFAULT NULL,
-    `grupos_id_grupo` INT NULL DEFAULT NULL,
-    PRIMARY KEY (`id_usuario`),
-    INDEX `id_estado` (`id_estado` ASC) VISIBLE,
-    INDEX `id_rol` (`id_rol` ASC) VISIBLE,
-    INDEX `fk_usuarios_grupos1_idx` (`grupos_id_grupo` ASC) VISIBLE,
-    CONSTRAINT `fk_usuarios_grupos1`
-    FOREIGN KEY (`grupos_id_grupo`)
-    REFERENCES `tricks`.`grupos` (`id_grupo`),
-    CONSTRAINT `usuarios_ibfk_1`
-    FOREIGN KEY (`id_estado`)
-    REFERENCES `tricks`.`estado` (`id_estado`),
-    CONSTRAINT `usuarios_ibfk_2`
-    FOREIGN KEY (`id_rol`)
-    REFERENCES `tricks`.`tipousuario` (`id_rol`))
-    ENGINE = InnoDB
-    AUTO_INCREMENT = 148
-    DEFAULT CHARACTER SET = utf8mb4
-    COLLATE = utf8mb4_0900_ai_ci;
+ALTER TABLE asistencias
+    ADD FOREIGN KEY (aspirante_folio_aspirante) REFERENCES aspirante(folio_aspirante);
 
+ALTER TABLE calificaciones
+    ADD FOREIGN KEY (aspirante_folio_aspirante) REFERENCES aspirante(folio_aspirante);
 
--- -----------------------------------------------------
--- Table `tricks`.`asistencias`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tricks`.`asistencias` (
-                                                      `id_asistencia` INT NOT NULL AUTO_INCREMENT,
-                                                      `fecha` DATE NULL DEFAULT NULL,
-                                                      `presente` VARCHAR(10) NULL DEFAULT NULL,
-    `usuarios_id_usuario` INT NOT NULL,
-    PRIMARY KEY (`id_asistencia`),
-    INDEX `fk_asistencias_usuarios1_idx` (`usuarios_id_usuario` ASC) VISIBLE,
-    CONSTRAINT `fk_asistencias_usuarios1`
-    FOREIGN KEY (`usuarios_id_usuario`)
-    REFERENCES `tricks`.`usuarios` (`id_usuario`))
-    ENGINE = InnoDB
-    DEFAULT CHARACTER SET = utf8mb4
-    COLLATE = utf8mb4_0900_ai_ci;
+ALTER TABLE aspirante
+    ADD FOREIGN KEY (estado_id_estado) REFERENCES estado(id_estado),
+ADD FOREIGN KEY (grupos_id_grupo) REFERENCES grupos(id_grupo);
 
+ALTER TABLE divisiones_academicas
+    ADD FOREIGN KEY (estado_id_estado) REFERENCES estado(id_estado);
 
--- -----------------------------------------------------
--- Table `tricks`.`aspirante`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tricks`.`aspirante` (
-                                                    `folio_aspirante` VARCHAR(10) NOT NULL,
-    `nombre` VARCHAR(50) NOT NULL,
-    `apellido` VARCHAR(50) NOT NULL,
-    `curp` VARCHAR(25) NOT NULL,
-    `estado_id_estado` INT NOT NULL,
-    `fecha_nac` DATETIME NOT NULL,
-    PRIMARY KEY (`folio_aspirante`),
-    INDEX `fk_aspirante_estado1_idx` (`estado_id_estado` ASC) VISIBLE,
-    CONSTRAINT `fk_aspirante_estado1`
-    FOREIGN KEY (`estado_id_estado`)
-    REFERENCES `tricks`.`estado` (`id_estado`))
-    ENGINE = InnoDB
-    DEFAULT CHARACTER SET = utf8mb4
-    COLLATE = utf8mb4_0900_ai_ci;
+ALTER TABLE grupos
+    ADD FOREIGN KEY (carreras_id_carrera) REFERENCES carreras(id_carrera),
+ADD FOREIGN KEY (estado_id_estado) REFERENCES estado(id_estado);
 
+ALTER TABLE carreras
+    ADD FOREIGN KEY (divisiones_academicas_id_division) REFERENCES divisiones_academicas(id_division),
+ADD FOREIGN KEY (estado_id_estado) REFERENCES estado(id_estado);
 
--- -----------------------------------------------------
--- Table `tricks`.`calificaciones`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tricks`.`calificaciones` (
-                                                         `id_calificacion` INT NOT NULL AUTO_INCREMENT,
-                                                         `calificacion` FLOAT NULL DEFAULT NULL,
-                                                         `aspirante_folio_aspirante` VARCHAR(10) NOT NULL,
-    PRIMARY KEY (`id_calificacion`),
-    INDEX `fk_calificaciones_aspirante1_idx` (`aspirante_folio_aspirante` ASC) VISIBLE,
-    CONSTRAINT `fk_calificaciones_aspirante1`
-    FOREIGN KEY (`aspirante_folio_aspirante`)
-    REFERENCES `tricks`.`aspirante` (`folio_aspirante`))
-    ENGINE = InnoDB
-    DEFAULT CHARACTER SET = utf8mb4
-    COLLATE = utf8mb4_0900_ai_ci;
+ALTER TABLE cursos
+    ADD FOREIGN KEY (estado_id_estado) REFERENCES estado(id_estado),
+ADD FOREIGN KEY (id_docente) REFERENCES usuarios(id_usuario);
 
+ALTER TABLE usuarios
+    ADD FOREIGN KEY (id_estado) REFERENCES estado(id_estado),
+ADD FOREIGN KEY (id_rol) REFERENCES tipousuario(id_rol),
+ADD FOREIGN KEY (grupos_id_grupo) REFERENCES grupos(id_grupo);
 
--- -----------------------------------------------------
--- Table `tricks`.`carreras`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tricks`.`carreras` (
-                                                   `id_carrera` INT NOT NULL AUTO_INCREMENT,
-                                                   `nombre_carrera` VARCHAR(100) NOT NULL,
-    `divisiones_academicas_id_division` INT NOT NULL,
-    PRIMARY KEY (`id_carrera`),
-    INDEX `fk_carreras_divisiones_academicas1_idx` (`divisiones_academicas_id_division` ASC) VISIBLE,
-    CONSTRAINT `fk_carreras_divisiones_academicas1`
-    FOREIGN KEY (`divisiones_academicas_id_division`)
-    REFERENCES `tricks`.`divisiones_academicas` (`id_division`))
-    ENGINE = InnoDB
-    AUTO_INCREMENT = 13
-    DEFAULT CHARACTER SET = utf8mb4
-    COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
--- Table `tricks`.`cursos`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tricks`.`cursos` (
-                                                 `id_curso` INT NOT NULL AUTO_INCREMENT,
-                                                 `nombre` VARCHAR(45) NOT NULL,
-    `id_docente` INT NULL DEFAULT NULL,
-    PRIMARY KEY (`id_curso`),
-    INDEX `id_docente` (`id_docente` ASC) VISIBLE,
-    CONSTRAINT `cursos_ibfk_1`
-    FOREIGN KEY (`id_docente`)
-    REFERENCES `tricks`.`usuarios` (`id_usuario`))
-    ENGINE = InnoDB
-    DEFAULT CHARACTER SET = utf8mb4
-    COLLATE = utf8mb4_0900_ai_ci;
-
-USE `tricks` ;
-
--- -----------------------------------------------------
--- procedure verUsuarios
--- -----------------------------------------------------
-
-DELIMITER $$
-USE `tricks`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `verUsuarios`(
-    IN new_id_rol INT  -- Parámetro de entrada para el nuevo id_rol
-)
-BEGIN
-SELECT u.id_usuario, CONCAT(u.nombre, ' ', u.apellido) AS nombre_completo, u.contrasena, u.mail, e.estado
-FROM usuarios u
-         INNER JOIN estado e ON e.id_estado = u.id_estado
-WHERE u.id_rol = new_id_rol
-GROUP BY u.id_usuario
-ORDER BY u.id_usuario ASC;
-END$$
-
-DELIMITER ;
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+ALTER TABLE Historial
+    ADD FOREIGN KEY (usuarios_id_usuario) REFERENCES usuarios(id_usuario);
