@@ -127,19 +127,26 @@
                         ArrayList<Grupo> lista = dao.getAll();
                         for (Grupo g : lista) {
                     %>
-                    <tr>
-                        <td><%= g.getNombreGrupo() %></td>
-                        <td><%= g.getDocente() %></td>
-                        <td><%= g.getCarrera() %></td>
-                        <td><%= g.getDivisionAcademica() %></td>
+                    <tr style="height: 10px; font-size: 15px" >
+                        <td  style="padding: 0; margin: 0" ><%= g.getNombreGrupo() %></td>
+                        <td style="padding: 0; margin: 0" ><%= g.getDocente() %></td>
+                        <td style="padding: 0; margin: 0" ><%= g.getCarrera() %></td>
+                        <td style="padding: 0; margin: 0" ><%= g.getDivisionAcademica() %></td>
                         <td>
-                            <button class="btn btnIcono btn-asignar" data-toggle="modal"
-                                    data-target="#asignarAspirantes" data-whatever="Asignar">
+                            <button class="btn btnIcono btn-aspirantes" data-toggle="modal"
+                                    style="height: 25px; font-size: 15px; margin: 5px; width: 25px"
+                                    data-target="#asignarMasivo" data-whatever="Aspirantes">
+                                <i class="fas fa-users"></i>
+                            </button>
+                            <button class="btn btnIcono btn-aspirantes" data-toggle="modal"
+                                    style="height: 25px; font-size: 15px; margin: 5px; width: 25px"
+                                    data-target="#asignarIndividual" data-whatever="Agregar Aspirante">
                                 <i class="fas fa-user-plus"></i>
                             </button>
                         </td>
                         <td>
                             <button class="btn btnIcono btn-modificar" data-toggle="modal"
+                                    style="height: 25px; font-size: 15px; margin: 5px; width: 25px"
                                     data-target="#modificarGrupo" data-whatever="Modificar"
                                     onclick="window.location.href='modificarGrupo?id=<%= g.getIdGrupo() %>'">
                                 <i class="fas fa-edit"></i>
