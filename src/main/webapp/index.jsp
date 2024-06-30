@@ -4,7 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Tricks</title>
+  <link rel="shortcut icon" type="image/x-icon" href="img_svg/logo.svg">
   <!-- iconos de ivan -->
   <script src="https://kit.fontawesome.com/8f2cb0ebcf.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="css/estilosIndex.css">
@@ -24,9 +25,6 @@
           <a class="nav-link text-white" href="html/login.jsp">
             <strong>Login</strong>
           </a>
-        </li>
-        <li class="nav-item m-3">
-          <a class="nav-link text-white"  href="#">Contacto</a>
         </li>
       </ul>
     </div>

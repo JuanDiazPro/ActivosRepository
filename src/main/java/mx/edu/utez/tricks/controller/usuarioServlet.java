@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import mx.edu.utez.tricks.dao.usuarioDao;
+import mx.edu.utez.tricks.dao.UsuarioDao;
 import mx.edu.utez.tricks.model.Usuario;
 
 import java.io.IOException;
@@ -20,7 +20,7 @@ public class usuarioServlet extends HttpServlet {
         // Conseguir la info del formulario, donde los inputs se llamen así:
         String nombre = req.getParameter("username");
         String contra = req.getParameter("password");
-        usuarioDao dao = new usuarioDao();
+        UsuarioDao dao = new UsuarioDao();
        Usuario usr = dao.getOne(nombre,contra);
 
         HttpSession session = req.getSession();
@@ -34,7 +34,7 @@ public class usuarioServlet extends HttpServlet {
             // si existe en la bd
             session.setAttribute("username", usr.getNombre());
             System.out.println("El usuario " + nombre + " si esta en la base de datos");
-            resp.sendRedirect("html/verAspirantes.jsp");
+            resp.sendRedirect("html/inicioAdmin.jsp");
         }
     }
 
