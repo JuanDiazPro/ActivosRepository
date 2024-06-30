@@ -128,4 +128,72 @@ public class UsuarioDao {
         }
         return flag;
     }
+
+
+    // ESTADISTICAS DE LAS CARDS DEL INICIO - NO MOVER -
+
+    public int getAspirantesCount() {
+        int count = 0;
+        String query = "SELECT COUNT(*) AS count FROM aspirante";
+        try {
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("count");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return count;
+    }
+
+    public int getDocentesCount() {
+        int count = 0;
+        String query = "SELECT COUNT(*) AS count FROM usuarios WHERE id_rol = 2"; // Suponiendo que el rol de docente es 2
+        try {
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("count");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return count;
+    }
+
+    public int getCarrerasCount() {
+        int count = 0;
+        String query = "SELECT COUNT(*) AS count FROM carreras";
+        try {
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("count");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return count;
+    }
+
+    public int getGruposCount() {
+        int count = 0;
+        String query = "SELECT COUNT(*) AS count FROM grupos";
+        try {
+            Connection con = DatabaseConnectionManager.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("count");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return count;
+    }
+
 }

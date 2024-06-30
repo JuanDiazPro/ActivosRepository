@@ -34,7 +34,7 @@ public class usuarioServlet extends HttpServlet {
             // si existe en la bd
             session.setAttribute("username", usr.getNombre());
             System.out.println("El usuario " + nombre + " si esta en la base de datos");
-            resp.sendRedirect("html/verDocentes.jsp");
+            resp.sendRedirect("html/inicioAdmin.jsp");
         }
     }
 

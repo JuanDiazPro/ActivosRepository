@@ -34,7 +34,7 @@
         </div>
         <ul class="sidebar-nav">
             <li class="sidebar-item">
-                <a href="inicioAdmin.html" class="sidebar-link">
+                <a href="inicioAdmin.jsp" class="sidebar-link">
                     <i class="fas fa-house"></i>
                     <span>Inicio</span>
                 </a>
