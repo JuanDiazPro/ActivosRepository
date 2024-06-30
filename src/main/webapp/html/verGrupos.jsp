@@ -132,7 +132,7 @@
                         <td style="padding: 0; margin: 0" ><%= g.getDocente() %></td>
                         <td style="padding: 0; margin: 0" ><%= g.getCarrera() %></td>
                         <td style="padding: 0; margin: 0" ><%= g.getDivisionAcademica() %></td>
-                        <td>
+                        <td style="padding: 0; margin: 0"  >
                             <button class="btn btnIcono btn-aspirantes" data-toggle="modal"
                                     style="height: 25px; font-size: 15px; margin: 5px; width: 25px"
                                     data-target="#asignarMasivo" data-whatever="Aspirantes">
@@ -143,8 +143,8 @@
                                     data-target="#asignarIndividual" data-whatever="Agregar Aspirante">
                                 <i class="fas fa-user-plus"></i>
                             </button>
-                        </td>
-                        <td>
+                        </td >
+                        <td style="padding: 0; margin: 0"  >
                             <button class="btn btnIcono btn-modificar" data-toggle="modal"
                                     style="height: 25px; font-size: 15px; margin: 5px; width: 25px"
                                     data-target="#modificarGrupo" data-whatever="Modificar"
