@@ -5,6 +5,7 @@
 -- ESTA MARCADO CADA UNO QUE ES LO QUE HACE
 -- ------------------------------------------------------------------------------
 -- ------------------------------------------------------------------------------
+USE tricks;
 
 SELECT * FROM tricks.usuarios;
 -- muestra los usuario no activos
@@ -51,10 +52,10 @@ select * from divisiones_academicas;
 -- consulta
 select grupos.id_grupo as idGrupo, grupos.nombre_grupo as nombreGrupo, CONCAT(usuarios.nombre, ' ', usuarios.apellido) as decente,
        carreras.nombre_carrera as carrera, divisiones_academicas.siglas as  divisionAcademica from grupos
-       join carreras on grupos.carreras_id_carrera = carreras.id_carrera
-       join divisiones_academicas on carreras.divisiones_academicas_id_division = divisiones_academicas.id_division
-       left join usuarios on grupos.id_grupo = usuarios.grupos_id_grupo
-       left join aspirante on grupos.id_grupo = aspirante.grupos_id_grupo
+                                                                                                       join carreras on grupos.carreras_id_carrera = carreras.id_carrera
+                                                                                                       join divisiones_academicas on carreras.divisiones_academicas_id_division = divisiones_academicas.id_division
+                                                                                                       left join usuarios on grupos.id_grupo = usuarios.grupos_id_grupo
+                                                                                                       left join aspirante on grupos.id_grupo = aspirante.grupos_id_grupo
 group by grupos.id_grupo, usuarios.id_usuario, carreras.id_carrera, divisiones_academicas.id_division;
 
 -- procedimiento
@@ -85,3 +86,32 @@ END //
 call verGrupos();
 DROP PROCEDURE IF EXISTS verGrupos ;
 
+-- Procedimiento ver Aspirantes
+DELIMITER //
+CREATE PROCEDURE verAspirantes()
+BEGIN
+SELECT
+    a.folio_aspirante AS folioAspirante,
+    CONCAT(a.nombre, ' ', a.apellido) AS nombreCompleto,
+    a.curp,
+    e.estado,
+    a.fecha_nac AS fechaNacimiento,
+    g.nombre_grupo AS nombreGrupo,
+    AVG(c.calificacion) AS promedioCalificaciones
+FROM
+    aspirante a
+        JOIN estado e ON a.estado_id_estado = e.id_estado
+        JOIN grupos g ON a.grupos_id_grupo = g.id_grupo
+        LEFT JOIN calificaciones c ON a.folio_aspirante = c.aspirante_folio_aspirante
+GROUP BY
+    a.folio_aspirante, a.nombre, a.apellido, a.curp, e.estado, a.fecha_nac, g.nombre_grupo
+ORDER BY
+    a.folio_aspirante ASC;
+END //
+DELIMITER ;
+
+-- Llamada al procedimiento
+CALL verAspirantes();
+
+-- Si deseas eliminar el procedimiento después de usarlo
+DROP PROCEDURE IF EXISTS verAspirantes;

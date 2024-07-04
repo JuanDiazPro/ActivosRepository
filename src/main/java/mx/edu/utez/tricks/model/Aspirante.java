@@ -69,6 +69,4 @@ public class Aspirante {
     public void setGrupo(String grupo) {
         this.grupo = grupo;
     }
-
-    // Puedes agregar métodos adicionales según tus necesidades
 }

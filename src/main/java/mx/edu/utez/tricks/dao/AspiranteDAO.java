@@ -24,10 +24,10 @@ public class AspiranteDAO {
                 Aspirante aspirante = new Aspirante();
                 aspirante.setFolioAspirante(rs.getString("folio_aspirante"));
                 aspirante.setNombre(rs.getString("nombre"));
-                aspirante.setApellidos(rs.getString("apellidos"));
+                aspirante.setApellidos(rs.getString("apellido"));
                 aspirante.setCurp(rs.getString("curp"));
-                aspirante.setFechaNacimiento(rs.getDate("fecha_nacimiento"));
-                aspirante.setGrupo(rs.getString("grupo"));
+                aspirante.setFechaNacimiento(rs.getDate("fecha_nac"));
+                aspirante.setGrupo(rs.getString("grupos_id_grupo"));
 
                 aspirantes.add(aspirante);
             }
@@ -39,7 +39,7 @@ public class AspiranteDAO {
     }
 
     public boolean agregarAspirante(Aspirante aspirante) {
-        String query = "INSERT INTO aspirante (folio_aspirante, nombre, apellidos, curp, fecha_nacimiento, grupo) " +
+        String query = "INSERT INTO aspirante (folio_aspirante, nombre, apellido, curp, fecha_nac, grupos_id_grupo) " +
                 "VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection con = DatabaseConnectionManager.getConnection();
@@ -62,7 +62,7 @@ public class AspiranteDAO {
     }
 
     public boolean actualizarAspirante(Aspirante aspirante) {
-        String query = "UPDATE aspirante SET nombre = ?, apellidos = ?, curp = ?, fecha_nacimiento = ?, grupo = ? " +
+        String query = "UPDATE aspirante SET nombre = ?, apellido = ?, curp = ?, fecha_nac = ?, grupos_id_grupo = ? " +
                 "WHERE folio_aspirante = ?";
 
         try (Connection con = DatabaseConnectionManager.getConnection();
