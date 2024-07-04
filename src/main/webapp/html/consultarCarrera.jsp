@@ -24,7 +24,7 @@
     <aside id="sidebar">
         <div class="d-flex">
             <button class="toggle-btn" type="button">
-                <img src="img/logo.svg" alt="Toggle">
+                <img src="../img_svg/logo.svg" alt="Toggle">
             </button>
             <div class="sidebar-logo">
                 <a href="#">TRICKS</a>
@@ -32,44 +32,44 @@
         </div>
         <ul class="sidebar-nav">
             <li class="sidebar-item">
-                <a href="inicioAdmin.html" class="sidebar-link">
+                <a href="inicioAdmin.jsp" class="sidebar-link">
                     <i class="fas fa-house"></i>
                     <span>Inicio</span>
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a href="consultarDivision.jsp" class="sidebar-link">
                     <i class="fas fa-school-flag"></i>
                     <span>División académica</span>
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a href="consultarCarrera.jsp" class="sidebar-link">
                     <i class="fas fa-graduation-cap"></i>
                     <span>Carrera</span>
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a href="verAspirantes.jsp" class="sidebar-link">
                     <i class="fas fa-users"></i>
                     <span>Aspirantes</span>
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a href="verDocentes.jsp" class="sidebar-link">
                     <i class="fas fa-chalkboard-user"></i>
                     <span>Docentes</span>
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="verGrupo.html" class="sidebar-link">
+                <a href="verGrupos.jsp" class="sidebar-link">
                     <i class="fas fa-users-rectangle"></i>
                     <span>Grupos</span>
                 </a>
             </li>
         </ul>
         <div class="sidebar-footer background-color">
-            <a href="#" class="sidebar-link">
+            <a href="../index.jsp" class="sidebar-link">
                 <i class="fas fa-right-from-bracket"></i>
                 <span>Salir</span>
             </a>
