@@ -31,6 +31,8 @@ public class AspiranteDAO {
 
                 aspirantes.add(aspirante);
             }
+            ps.close();
+            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -51,7 +53,8 @@ public class AspiranteDAO {
             ps.setString(4, aspirante.getCurp());
             ps.setDate(5, new java.sql.Date(aspirante.getFechaNacimiento().getTime()));
             ps.setString(6, aspirante.getGrupo());
-
+            ps.close();
+            con.close();
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
 
@@ -59,6 +62,7 @@ public class AspiranteDAO {
             e.printStackTrace();
             return false;
         }
+
     }
 
     public boolean actualizarAspirante(Aspirante aspirante) {
@@ -74,7 +78,8 @@ public class AspiranteDAO {
             ps.setDate(4, new java.sql.Date(aspirante.getFechaNacimiento().getTime()));
             ps.setString(5, aspirante.getGrupo());
             ps.setString(6, aspirante.getFolioAspirante());
-
+            ps.close();
+            con.close();
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
 
@@ -91,7 +96,8 @@ public class AspiranteDAO {
              PreparedStatement ps = con.prepareStatement(query)) {
 
             ps.setString(1, folioAspirante);
-
+            ps.close();
+            con.close();
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
 

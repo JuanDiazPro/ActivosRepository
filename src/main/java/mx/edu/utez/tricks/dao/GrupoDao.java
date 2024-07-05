@@ -29,6 +29,8 @@ public class GrupoDao {
                 g.setDivisionAcademica(rs.getString("divisionAcademica"));
                 lista.add(g);
             }
+            ps.close();
+            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
