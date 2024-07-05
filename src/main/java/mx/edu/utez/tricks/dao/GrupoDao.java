@@ -13,7 +13,7 @@ public class GrupoDao {
     // Read para todos los grupos
     public ArrayList<Grupo> getAll() {
         ArrayList<Grupo> lista = new ArrayList<>();
-        String query = "{ CALL verGrupos() }"; // PEPE: FALTA CREAR UN PROCEDIMIENTO ALMACENADO PARA VER GRUPOS
+        String query = "{ CALL verGrupos() }";
 
         try {
             Connection con = DatabaseConnectionManager.getConnection();
