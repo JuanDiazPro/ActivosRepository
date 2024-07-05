@@ -40,32 +40,38 @@
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a href="consultarDivision.jsp" class="sidebar-link">
                     <i class="fas fa-school-flag"></i>
                     <span>División académica</span>
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a href="consultarCarrera.jsp" class="sidebar-link">
                     <i class="fas fa-graduation-cap"></i>
                     <span>Carrera</span>
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a href="verAspirantes.jsp" class="sidebar-link">
                     <i class="fas fa-users"></i>
                     <span>Aspirantes</span>
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="verGrupo.jsp" class="sidebar-link">
+                <a href="verDocentes.jsp" class="sidebar-link">
+                    <i class="fas fa-chalkboard-user"></i>
+                    <span>Docentes</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="verGrupos.jsp" class="sidebar-link">
                     <i class="fas fa-users-rectangle"></i>
                     <span>Grupos</span>
                 </a>
             </li>
         </ul>
         <div class="sidebar-footer background-color">
-            <a href="#" class="sidebar-link">
+            <a href="../index.jsp" class="sidebar-link">
                 <i class="fas fa-right-from-bracket"></i>
                 <span>Salir</span>
             </a>
