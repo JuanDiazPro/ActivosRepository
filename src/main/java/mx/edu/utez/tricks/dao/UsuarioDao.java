@@ -31,6 +31,10 @@ public class UsuarioDao {
                 usuario.setNombre(rs.getString("mail"));
                 usuario.setContra(rs.getString("contrasena"));
             }
+            //ALERTA///////////////////////////
+            //CERRAR LAS CONEXIONES CADA QUE SE TERMINA UNA CONSULTA !!!!!///
+            ps.close();
+            con.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -56,6 +60,8 @@ public class UsuarioDao {
                 usuario.setMail(rs.getString("correo"));
                 usuario.setEstado(rs.getString("estado"));
             }
+            ps.close();
+            con.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -75,6 +81,8 @@ public class UsuarioDao {
             if(ps.executeUpdate()>0){
                 flag = true;
             }
+            ps.close();
+            con.close();
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -104,6 +112,8 @@ public class UsuarioDao {
                 u.setEstado(rs.getString("estado"));
                 lista.add(u);
             }
+            ps.close();
+            con.close();
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -123,6 +133,8 @@ public class UsuarioDao {
             if(ps.executeUpdate()>0){
                 flag = true;
             }
+            ps.close();
+            con.close();
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -142,6 +154,8 @@ public class UsuarioDao {
             if (rs.next()) {
                 count = rs.getInt("count");
             }
+            ps.close();
+            con.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -158,6 +172,8 @@ public class UsuarioDao {
             if (rs.next()) {
                 count = rs.getInt("count");
             }
+            ps.close();
+            con.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -174,6 +190,8 @@ public class UsuarioDao {
             if (rs.next()) {
                 count = rs.getInt("count");
             }
+            ps.close();
+            con.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -190,6 +208,8 @@ public class UsuarioDao {
             if (rs.next()) {
                 count = rs.getInt("count");
             }
+            ps.close();
+            con.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
