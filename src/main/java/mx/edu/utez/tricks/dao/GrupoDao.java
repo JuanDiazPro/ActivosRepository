@@ -31,6 +31,7 @@ public class GrupoDao {
             }
             ps.close();
             con.close();
+            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
