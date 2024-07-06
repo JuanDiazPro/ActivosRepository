@@ -14,7 +14,7 @@ public class AspiranteDAO {
 
     public List<Aspirante> getAllAspirantes() {
         List<Aspirante> aspirantes = new ArrayList<>();
-        String query = "SELECT folio_aspirante, nombre, apellido, curp, grupos_id_grupo, estado_id_estado FROM aspirante";
+        String query = " CALL verAspirantes() ";
 
         try (Connection con = DatabaseConnectionManager.getConnection();
              PreparedStatement ps = con.prepareStatement(query);

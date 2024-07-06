@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="shortcut icon" type="image/x-icon" href="../img_svg/faviconGrupo.svg">
-    <link rel="stylesheet" href="../css/estilosAspirantes.css">
+    <link rel="stylesheet" href="../css/style.css">
     <script src="https://kit.fontawesome.com/8f2cb0ebcf.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -89,26 +89,17 @@
                 </div>
                 <div class="col-md-2">
                     <select class="custom-select" required>
-                        <option value="">Carrera</option>
-                        <option value="1">A</option>
-                        <option value="2">B</option>
-                        <option value="3">C</option>
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <select class="custom-select" required>
                         <option value="">Grupo</option>
-                        <option value="1">A</option>
-                        <option value="2">B</option>
-                        <option value="3">C</option>
+                        <option value="1">1</option>
+                        <option value="2">27</option>
+                        <option value="3">31</option>
                     </select>
                 </div>
                 <div class="col-md-2">
                     <select class="custom-select" required>
                         <option value="">Estatus</option>
-                        <option value="1">A</option>
-                        <option value="2">B</option>
-                        <option value="3">C</option>
+                        <option value="1">1</option>
+                        <option value="2">0</option>
                     </select>
                 </div>
                 <div class="col-md-3">
@@ -119,7 +110,7 @@
                 </div>
             </div><br>
 
-            <div class="container-xxl table-responsive" style="background-color: #fff; border-radius: 20px;">
+            <div class="container-xxl table-responsive" style="background-color: #fff; border-radius: 20px; height: 100%">
                 <table class="table">
                     <thead class="thead-light">
                     <tr align="center">
