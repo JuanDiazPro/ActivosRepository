@@ -499,3 +499,7 @@ a.sidebar-link:hover {
 .activo{
     color: green;
 }
+
+.table-responsive{
+    height: 100vh !important;
+}

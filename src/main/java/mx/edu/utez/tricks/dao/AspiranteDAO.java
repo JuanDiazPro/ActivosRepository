@@ -14,7 +14,7 @@ public class AspiranteDAO {
 
     public List<Aspirante> getAllAspirantes() {
         List<Aspirante> aspirantes = new ArrayList<>();
-        String query = "SELECT folio_aspirante, nombre, apellido, curp, grupos_id_grupo, estado_id_estado FROM aspirante";
+        String query = " CALL verAspirantes() ";
 
         try (Connection con = DatabaseConnectionManager.getConnection();
              PreparedStatement ps = con.prepareStatement(query);
@@ -54,9 +54,16 @@ public class AspiranteDAO {
             ps.setDate(5, new java.sql.Date(aspirante.getFechaNacimiento().getTime()));
             ps.setString(6, aspirante.getGrupo());
 
+
             ps.close();
             con.close();
 
+            ps.setString(7, aspirante.getEstado());
+
+
+
+            ps.close();
+            con.close();
             ps.setString(7, aspirante.getEstado());
 
 
@@ -95,6 +102,7 @@ public class AspiranteDAO {
         }
     }
 
+
     public boolean eliminarAspirante(String folioAspirante) {
         String query = "DELETE FROM aspirante WHERE folio_aspirante = ?";
 
@@ -115,4 +123,5 @@ public class AspiranteDAO {
             return false;
         }
     }
+
 }

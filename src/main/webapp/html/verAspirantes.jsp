@@ -18,8 +18,41 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="shortcut icon" type="image/x-icon" href="../img_svg/faviconGrupo.svg">
-    <link rel="stylesheet" href="../css/estilosAspirantes.css">
+    <link rel="stylesheet" href="../css/style.css">
     <script src="https://kit.fontawesome.com/8f2cb0ebcf.js" crossorigin="anonymous"></script>
+    <style>
+        .table-responsive {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        thead th {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 1;
+        }
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        .table{
+            margin-bottom: 0;
+        }
+        .modal-body{
+            padding: 0 1.5rem;
+            border-radius: .3rem;
+        }
+        .modal-footer{
+            border: none;
+        }
+        .form-group{
+            margin-bottom: .5rem !important;
+        }
+    </style>
 </head>
 <body>
 <div class="wrapper" style="height: 100vh;">
@@ -79,7 +112,7 @@
     </aside>
 
     <div class="main">
-        <div class="container mt-5 text-left">
+        <div class="container mt-4 text-left">
             <h1 class="mb-4 text-light">Aspirantes</h1>
 
             <!-- Filtros y botón de registrar -->
@@ -88,27 +121,25 @@
                     <input type="text" id="filterName" class="form-control" placeholder="Nombre o Matricula">
                 </div>
                 <div class="col-md-2">
-                    <select class="custom-select" required>
-                        <option value="">Carrera</option>
-                        <option value="1">A</option>
-                        <option value="2">B</option>
-                        <option value="3">C</option>
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <select class="custom-select" required>
+                    <select class="custom-select" id="filterDivision" required>
                         <option value="">Grupo</option>
-                        <option value="1">A</option>
-                        <option value="2">B</option>
-                        <option value="3">C</option>
+                        <option value="1">1</option>
+                        <option value="27">27</option>
+                        <option value="31">31</option>
+                        <option value="32">32</option>
+                        <option value="36">36</option>
+                        <option value="37">37</option>
+                        <option value="41">41</option>
+                        <option value="42">42</option>
+                        <option value="46">46</option>
+                        <option value="47">47</option>
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <select class="custom-select" required>
+                    <select class="custom-select" id="filterCareer" required>
                         <option value="">Estatus</option>
-                        <option value="1">A</option>
-                        <option value="2">B</option>
-                        <option value="3">C</option>
+                        <option value="1">1</option>
+                        <option value="0">0</option>
                     </select>
                 </div>
                 <div class="col-md-3">
@@ -120,7 +151,7 @@
             </div><br>
 
             <div class="container-xxl table-responsive" style="background-color: #fff; border-radius: 20px;">
-                <table class="table">
+                <table class="table" id="example">
                     <thead class="thead-light">
                     <tr align="center">
                         <th>Folio</th>
@@ -157,26 +188,6 @@
                     </tbody>
                 </table>
             </div>
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="antes" id="paginaAnterior" data-page="Anterior">
-                            <span aria-hidden="true">&laquo;</span>
-                            <span class="sr-only">Anterior</span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#" id="page-1" data-page="Página 1">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#" id="page-2" data-page="Página 2">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#" id="page-3" data-page="Página 3">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="despues" id="paginaSiguiente"
-                           data-page="Posterior">
-                            <span aria-hidden="true">&raquo;</span>
-                            <span class="sr-only">Posterior</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -207,7 +218,9 @@
                     </div>
                     <div class="form-group">
                         <label for="curpAspirante" class="col-form-label">CURP del Aspirante:</label>
-                        <input type="text" class="form-control" id="curpAspirante" name="curpAspirante" placeholder="CURP">
+                        <input type="text" class
+
+                                ="form-control" id="curpAspirante" name="curpAspirante" placeholder="CURP">
                     </div>
                     <div class="form-group">
                         <label for="fechaNacimientoAspirante" class="col-form-label">Fecha de Nacimiento del Aspirante:</label>
@@ -221,7 +234,6 @@
         </div>
     </div>
 </div>
-
 
 <!-- Modal modificar aspirante -->
 <div class="modal fade" id="modificarAspirante" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -237,7 +249,7 @@
                 <form action="../ActualizarAspiranteServlet" method="post">
                     <div class="form-group">
                         <label for="folioAspirante" class="col-form-label">Folio del Aspirante:</label>
-                        <input type="text" class="form-control" id="folioAspirante" name="folioAspirante" placeholder="Nuevo folio">
+                        <input type="text" class="form-control" id="folioAspirante" name="folioAspirante">
                     </div>
                     <div class="form-group">
                         <label for="nombreAspirante" class="col-form-label">Nombre del Aspirante:</label>
@@ -264,7 +276,44 @@
     </div>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var filterName = document.getElementById('filterName');
+        var filterCareer = document.getElementById('filterCareer');
+        var filterDivision = document.getElementById('filterDivision');
 
+        filterName.addEventListener('input', filterTable);
+        filterCareer.addEventListener('change', filterTable);
+        filterDivision.addEventListener('change', filterTable);
+
+        function filterTable() {
+            var filterNameValue = filterName.value.toLowerCase();
+            var filterCareerValue = filterCareer.value.toLowerCase();
+            var filterDivisionValue = filterDivision.value.toLowerCase();
+            var table = document.getElementById('example');
+            var rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+            for (var i = 0; i < rows.length; i++) {
+                var cells = rows[i].getElementsByTagName('td');
+                var folio = cells[0].textContent.toLowerCase();  // Columna "Folio"
+                var name = cells[1].textContent.toLowerCase();   // Columna "Nombre"
+                var apellido = cells[2].textContent.toLowerCase(); // Columna "Apellido"
+                var career = cells[5].textContent.toLowerCase(); // Columna "Estado"
+                var division = cells[4].textContent.toLowerCase(); // Columna "Grupo"
+
+                var nameMatch = filterNameValue === '' || folio.includes(filterNameValue) || name.includes(filterNameValue) || apellido.includes(filterNameValue);
+                var careerMatch = filterCareerValue === '' || career === filterCareerValue;
+                var divisionMatch = filterDivisionValue === '' || division === filterDivisionValue;
+
+                if (nameMatch && careerMatch && divisionMatch) {
+                    rows[i].style.display = '';
+                } else {
+                    rows[i].style.display = 'none';
+                }
+            }
+        }
+    });
+</script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
