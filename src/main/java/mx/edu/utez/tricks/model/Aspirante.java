@@ -9,17 +9,19 @@ public class Aspirante {
     private String curp;
     private Date fechaNacimiento;
     private String grupo;
+    private String estado;
 
     public Aspirante() {
     }
 
-    public Aspirante(String folioAspirante, String nombre, String apellidos, String curp, Date fechaNacimiento, String grupo) {
+    public Aspirante(String folioAspirante, String nombre, String apellidos, String curp, Date fechaNacimiento, String grupo, String estado) {
         this.folioAspirante = folioAspirante;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.curp = curp;
         this.fechaNacimiento = fechaNacimiento;
         this.grupo = grupo;
+        this.estado = estado;
     }
 
     public String getFolioAspirante() {
@@ -69,4 +71,8 @@ public class Aspirante {
     public void setGrupo(String grupo) {
         this.grupo = grupo;
     }
+
+    public String getEstado() {return estado;}
+
+    public void setEstado(String estado) {this.estado = estado;}
 }

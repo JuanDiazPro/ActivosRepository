@@ -89,15 +89,32 @@
                 </div>
                 <div class="col-md-2">
                     <select class="custom-select" required>
+                        <option value="">Carrera</option>
+                        <option value="1">A</option>
+                        <option value="2">B</option>
+                        <option value="3">C</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select class="custom-select" required>
                         <option value="">Grupo</option>
                         <option value="1">A</option>
                         <option value="2">B</option>
                         <option value="3">C</option>
                     </select>
                 </div>
-                <div class="col-md-1">
+                <div class="col-md-2">
+                    <select class="custom-select" required>
+                        <option value="">Estatus</option>
+                        <option value="1">A</option>
+                        <option value="2">B</option>
+                        <option value="3">C</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
                     <button type="button" class="btn btnIcono w-100" data-toggle="modal"
-                            data-target="#registrarGrupo"><i class="fa-solid fa-user-plus"></i>
+                            data-target="#registrarAspirante">
+                        Registrar aspirante
                     </button>
                 </div>
             </div><br>
@@ -110,8 +127,8 @@
                         <th>Nombre</th>
                         <th>Apellidos</th>
                         <th>CURP</th>
-                        <th>Fecha de Nacimiento</th>
                         <th>Grupo</th>
+                        <th>Estado</th>
                         <th>Editar</th>
                     </tr>
                     </thead>
@@ -126,13 +143,12 @@
                         <td style="padding: 0; margin: 0"><%= aspirante.getNombre() %></td>
                         <td style="padding: 0; margin: 0"><%= aspirante.getApellidos() %></td>
                         <td style="padding: 0; margin: 0"><%= aspirante.getCurp() %></td>
-                        <td style="padding: 0; margin: 0"><%= aspirante.getFechaNacimiento() %></td>
                         <td style="padding: 0; margin: 0"><%= aspirante.getGrupo() %></td>
+                        <td style="padding: 0; margin: 0"><%= aspirante.getEstado() %></td>
                         <td style="padding: 0; margin: 0">
                             <button class="btn btnIcono btn-modificar" data-toggle="modal"
                                     style="height: 25px; font-size: 15px; margin: 5px; width: 25px"
-                                    data-target="#modificarAspirante" data-whatever="Modificar"
-                                    onclick="window.location.href='modificarAspirante?id=<%= aspirante.getFolioAspirante() %>'">
+                                    data-target="#modificarAspirante" data-whatever="Modificar">
                                 <i class="fas fa-edit"></i>
                             </button>
                         </td>
@@ -165,133 +181,90 @@
     </div>
 </div>
 
-<!-- Modal registrar grupo nuevo -->
-<div class="modal fade" id="registrarGrupo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
+<!-- Modal registrar aspirante nuevo -->
+<div class="modal fade" id="registrarAspirante" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Registrar Grupo</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Registro de Aspirante</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form action="../RegistrarAspiranteServlet" method="post">
                     <div class="form-group">
-                        <label for="groupName" class="col-form-label">Nombre del Grupo:</label>
-                        <input type="text" class="form-control" id="groupName">
+                        <label for="folioAspirante" class="col-form-label">Folio del Aspirante:</label>
+                        <input type="text" class="form-control" id="folioAspirante" name="folioAspirante" placeholder="Folio">
+                    </div>
+                    <div class="form-group">
+                        <label for="nombreAspirante" class="col-form-label">Nombre del Aspirante:</label>
+                        <input type="text" class="form-control" id="nombreAspirante" name="nombreAspirante" placeholder="Nombre">
+                    </div>
+                    <div class="form-group">
+                        <label for="apellidosAspirante" class="col-form-label">Apellidos del Aspirante:</label>
+                        <input type="text" class="form-control" id="apellidosAspirante" name="apellidosAspirante" placeholder="Apellidos">
+                    </div>
+                    <div class="form-group">
+                        <label for="curpAspirante" class="col-form-label">CURP del Aspirante:</label>
+                        <input type="text" class="form-control" id="curpAspirante" name="curpAspirante" placeholder="CURP">
+                    </div>
+                    <div class="form-group">
+                        <label for="fechaNacimientoAspirante" class="col-form-label">Fecha de Nacimiento del Aspirante:</label>
+                        <input type="date" class="form-control" id="fechaNacimientoAspirante" name="fechaNacimientoAspirante">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn modalBoton2">Registrar</button>
                     </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Registrar</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Modal asignar masivo -->
-<div class="modal fade" id="asignarMasivo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Asignar Grupo a Aspirantes</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="groupSelection" class="col-form-label">Selecciona el Grupo:</label>
-                        <select class="custom-select" id="groupSelection">
-                            <option value="1">A</option>
-                            <option value="2">B</option>
-                            <option value="3">C</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Asignar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal asignar individual -->
-<div class="modal fade" id="asignarIndividual" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Asignar Aspirante a Grupo</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="individualGroupSelection" class="col-form-label">Selecciona el Grupo:</label>
-                        <select class="custom-select" id="individualGroupSelection">
-                            <option value="1">A</option>
-                            <option value="2">B</option>
-                            <option value="3">C</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="individualAspirantName" class="col-form-label">Nombre del Aspirante:</label>
-                        <input type="text" class="form-control" id="individualAspirantName">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Asignar</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Modal modificar aspirante -->
-<div class="modal fade" id="modificarAspirante" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
+<div class="modal fade" id="modificarAspirante" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modificar Aspirante</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Actualizar Aspirante</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form action="../ActualizarAspiranteServlet" method="post">
                     <div class="form-group">
-                        <label for="modifyAspirantName" class="col-form-label">Nombre del Aspirante:</label>
-                        <input type="text" class="form-control" id="modifyAspirantName">
+                        <label for="folioAspirante" class="col-form-label">Folio del Aspirante:</label>
+                        <input type="text" class="form-control" id="folioAspirante" name="folioAspirante" placeholder="Nuevo folio">
                     </div>
                     <div class="form-group">
-                        <label for="modifyAspirantGroup" class="col-form-label">Grupo:</label>
-                        <select class="custom-select" id="modifyAspirantGroup">
-                            <option value="1">A</option>
-                            <option value="2">B</option>
-                            <option value="3">C</option>
-                        </select>
+                        <label for="nombreAspirante" class="col-form-label">Nombre del Aspirante:</label>
+                        <input type="text" class="form-control" id="nombreAspirante" name="nombreAspirante" placeholder="Nuevo nombre">
+                    </div>
+                    <div class="form-group">
+                        <label for="apellidosAspirante" class="col-form-label">Apellidos del Aspirante:</label>
+                        <input type="text" class="form-control" id="apellidosAspirante" name="apellidosAspirante" placeholder="Nuevo apellido">
+                    </div>
+                    <div class="form-group">
+                        <label for="curpAspirante" class="col-form-label">CURP del Aspirante:</label>
+                        <input type="text" class="form-control" id="curpAspirante" name="curpAspirante" placeholder="Nuevo CURP">
+                    </div>
+                    <div class="form-group">
+                        <label for="fechaNacimientoAspirante" class="col-form-label">Fecha de Nacimiento del Aspirante:</label>
+                        <input type="date" class="form-control" id="fechaNacimientoAspirante" name="fechaNacimientoAspirante">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn modalBoton2">Actualizar</button>
                     </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar Cambios</button>
             </div>
         </div>
     </div>
 </div>
+
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
