@@ -90,7 +90,6 @@ DROP PROCEDURE IF EXISTS verGrupos ;
 DELIMITER //
 CREATE PROCEDURE verAspirantes()
 BEGIN
-BEGIN
 SELECT
     folio_aspirante,
     nombre,
