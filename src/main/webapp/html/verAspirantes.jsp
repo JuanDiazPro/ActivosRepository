@@ -20,6 +20,39 @@
     <link rel="shortcut icon" type="image/x-icon" href="../img_svg/faviconGrupo.svg">
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://kit.fontawesome.com/8f2cb0ebcf.js" crossorigin="anonymous"></script>
+    <style>
+        .table-responsive {
+            max-height: 70vh; /* Ajusta este valor según tus necesidades */
+            overflow-y: auto;
+        }
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        thead th {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 1;
+        }
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        .table{
+            margin-bottom: 0;
+        }
+        .modal-body{
+            padding: 0 1.5rem;
+            border-radius: .3rem;
+        }
+        .modal-footer{
+            border: none;
+        }
+        .form-group{
+            margin-bottom: .5rem !important;
+        }
+    </style>
 </head>
 <body>
 <div class="wrapper" style="height: 100vh;">
@@ -79,7 +112,7 @@
     </aside>
 
     <div class="main">
-        <div class="container mt-5 text-left">
+        <div class="container mt-4 text-left">
             <h1 class="mb-4 text-light">Aspirantes</h1>
 
             <!-- Filtros y botón de registrar -->
@@ -88,7 +121,7 @@
                     <input type="text" id="filterName" class="form-control" placeholder="Nombre o Matricula">
                 </div>
                 <div class="col-md-2">
-                    <select class="custom-select" required>
+                    <select class="custom-select" id="filterDivision" required>
                         <option value="">Grupo</option>
                         <option value="1">1</option>
                         <option value="2">27</option>
@@ -96,7 +129,7 @@
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <select class="custom-select" required>
+                    <select class="custom-select" id="filterCareer" required>
                         <option value="">Estatus</option>
                         <option value="1">1</option>
                         <option value="2">0</option>
@@ -110,8 +143,8 @@
                 </div>
             </div><br>
 
-            <div class="container-xxl table-responsive" style="background-color: #fff; border-radius: 20px; height: 100%">
-                <table class="table">
+            <div class="container-xxl table-responsive" style="background-color: #fff; border-radius: 20px;">
+                <table class="table" id="example">
                     <thead class="thead-light">
                     <tr align="center">
                         <th>Folio</th>
@@ -148,26 +181,6 @@
                     </tbody>
                 </table>
             </div>
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="antes" id="paginaAnterior" data-page="Anterior">
-                            <span aria-hidden="true">&laquo;</span>
-                            <span class="sr-only">Anterior</span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#" id="page-1" data-page="Página 1">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#" id="page-2" data-page="Página 2">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#" id="page-3" data-page="Página 3">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="despues" id="paginaSiguiente"
-                           data-page="Posterior">
-                            <span aria-hidden="true">&raquo;</span>
-                            <span class="sr-only">Posterior</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -198,7 +211,9 @@
                     </div>
                     <div class="form-group">
                         <label for="curpAspirante" class="col-form-label">CURP del Aspirante:</label>
-                        <input type="text" class="form-control" id="curpAspirante" name="curpAspirante" placeholder="CURP">
+                        <input type="text" class
+
+                                ="form-control" id="curpAspirante" name="curpAspirante" placeholder="CURP">
                     </div>
                     <div class="form-group">
                         <label for="fechaNacimientoAspirante" class="col-form-label">Fecha de Nacimiento del Aspirante:</label>
@@ -212,7 +227,6 @@
         </div>
     </div>
 </div>
-
 
 <!-- Modal modificar aspirante -->
 <div class="modal fade" id="modificarAspirante" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -255,7 +269,40 @@
     </div>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var filterName = document.getElementById('filterName');
+        var filterCareer = document.getElementById('filterCareer');
+        var filterDivision = document.getElementById('filterDivision');
 
+        filterName.addEventListener('input', filterTable);
+        filterCareer.addEventListener('change', filterTable);
+        filterDivision.addEventListener('change', filterTable);
+
+        function filterTable() {
+            var filterNameValue = filterName.value.toLowerCase();
+            var filterCareerValue = filterCareer.value.toLowerCase();
+            var filterDivisionValue = filterDivision.value.toLowerCase();
+            var table = document.getElementById('example');
+            var rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+            for (var i = 0; i < rows.length; i++) {
+                var cells = rows[i].getElementsByTagName('td');
+                var name = cells[0].textContent.toLowerCase();
+                var career = cells[2].textContent.toLowerCase();
+                var division = cells[3].textContent.toLowerCase();
+
+                if ((name.indexOf(filterNameValue) > -1 || filterNameValue === '') &&
+                    (career.indexOf(filterCareerValue) > -1 || filterCareerValue === '') &&
+                    (division.indexOf(filterDivisionValue) > -1 || filterDivisionValue === '')) {
+                    rows[i].style.display = '';
+                } else {
+                    rows[i].style.display = 'none';
+                }
+            }
+        }
+    });
+</script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

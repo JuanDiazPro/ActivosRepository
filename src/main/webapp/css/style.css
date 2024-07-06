@@ -500,4 +500,6 @@ a.sidebar-link:hover {
     color: green;
 }
 
-.
+.table-responsive{
+    height: 100vh !important;
+}
