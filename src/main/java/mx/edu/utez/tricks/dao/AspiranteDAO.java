@@ -53,13 +53,10 @@ public class AspiranteDAO {
             ps.setString(4, aspirante.getCurp());
             ps.setDate(5, new java.sql.Date(aspirante.getFechaNacimiento().getTime()));
             ps.setString(6, aspirante.getGrupo());
-<<<<<<< HEAD
             ps.close();
             con.close();
-=======
             ps.setString(7, aspirante.getEstado());
 
->>>>>>> 663a00f7dda280d283a62a3051a119f6321d8962
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
 
@@ -82,33 +79,9 @@ public class AspiranteDAO {
             ps.setString(3, aspirante.getCurp());
             ps.setDate(4, new java.sql.Date(aspirante.getFechaNacimiento().getTime()));
             ps.setString(5, aspirante.getGrupo());
-<<<<<<< HEAD
             ps.setString(6, aspirante.getFolioAspirante());
             ps.close();
             con.close();
-            int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    public boolean eliminarAspirante(String folioAspirante) {
-        String query = "DELETE FROM aspirante WHERE folio_aspirante = ?";
-
-        try (Connection con = DatabaseConnectionManager.getConnection();
-             PreparedStatement ps = con.prepareStatement(query)) {
-
-            ps.setString(1, folioAspirante);
-            ps.close();
-            con.close();
-=======
-            ps.setString(6, aspirante.getEstado());
-            ps.setString(7, aspirante.getFolioAspirante());
-
->>>>>>> 663a00f7dda280d283a62a3051a119f6321d8962
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
 

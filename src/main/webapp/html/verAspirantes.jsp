@@ -237,7 +237,7 @@
                 <form action="../ActualizarAspiranteServlet" method="post">
                     <div class="form-group">
                         <label for="folioAspirante" class="col-form-label">Folio del Aspirante:</label>
-                        <input type="text" class="form-control" id="folioAspirante" name="folioAspirante" placeholder="Nuevo folio">
+                        <input type="text" class="form-control" id="folioAspirante" name="folioAspirante">
                     </div>
                     <div class="form-group">
                         <label for="nombreAspirante" class="col-form-label">Nombre del Aspirante:</label>
