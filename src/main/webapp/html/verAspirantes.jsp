@@ -22,7 +22,7 @@
     <script src="https://kit.fontawesome.com/8f2cb0ebcf.js" crossorigin="anonymous"></script>
     <style>
         .table-responsive {
-            max-height: 70vh; /* Ajusta este valor según tus necesidades */
+            max-height: 70vh;
             overflow-y: auto;
         }
         table {

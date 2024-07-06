@@ -90,23 +90,17 @@ DROP PROCEDURE IF EXISTS verGrupos ;
 DELIMITER //
 CREATE PROCEDURE verAspirantes()
 BEGIN
+BEGIN
 SELECT
-    a.folio_aspirante AS folioAspirante,
-    CONCAT(a.nombre, ' ', a.apellido) AS nombreCompleto,
-    a.curp,
-    e.estado,
-    a.fecha_nac AS fechaNacimiento,
-    g.nombre_grupo AS nombreGrupo,
-    AVG(c.calificacion) AS promedioCalificaciones
-FROM
-    aspirante a
-        JOIN estado e ON a.estado_id_estado = e.id_estado
-        JOIN grupos g ON a.grupos_id_grupo = g.id_grupo
-        LEFT JOIN calificaciones c ON a.folio_aspirante = c.aspirante_folio_aspirante
-GROUP BY
-    a.folio_aspirante, a.nombre, a.apellido, a.curp, e.estado, a.fecha_nac, g.nombre_grupo
-ORDER BY
-    a.folio_aspirante ASC;
+    folio_aspirante,
+    nombre,
+    apellido,
+    curp,
+    grupos_id_grupo,
+    estado_id_estado
+FROM aspirante
+ORDER BY folio_aspirante ASC
+    LIMIT 30;
 END //
 DELIMITER ;
 
