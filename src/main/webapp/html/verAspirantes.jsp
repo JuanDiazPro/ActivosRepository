@@ -124,15 +124,22 @@
                     <select class="custom-select" id="filterDivision" required>
                         <option value="">Grupo</option>
                         <option value="1">1</option>
-                        <option value="2">27</option>
-                        <option value="3">31</option>
+                        <option value="27">27</option>
+                        <option value="31">31</option>
+                        <option value="32">32</option>
+                        <option value="36">36</option>
+                        <option value="37">37</option>
+                        <option value="41">41</option>
+                        <option value="42">42</option>
+                        <option value="46">46</option>
+                        <option value="47">47</option>
                     </select>
                 </div>
                 <div class="col-md-2">
                     <select class="custom-select" id="filterCareer" required>
                         <option value="">Estatus</option>
                         <option value="1">1</option>
-                        <option value="2">0</option>
+                        <option value="0">0</option>
                     </select>
                 </div>
                 <div class="col-md-3">
@@ -288,13 +295,17 @@
 
             for (var i = 0; i < rows.length; i++) {
                 var cells = rows[i].getElementsByTagName('td');
-                var name = cells[0].textContent.toLowerCase();
-                var career = cells[2].textContent.toLowerCase();
-                var division = cells[3].textContent.toLowerCase();
+                var folio = cells[0].textContent.toLowerCase();  // Columna "Folio"
+                var name = cells[1].textContent.toLowerCase();   // Columna "Nombre"
+                var apellido = cells[2].textContent.toLowerCase(); // Columna "Apellido"
+                var career = cells[5].textContent.toLowerCase(); // Columna "Estado"
+                var division = cells[4].textContent.toLowerCase(); // Columna "Grupo"
 
-                if ((name.indexOf(filterNameValue) > -1 || filterNameValue === '') &&
-                    (career.indexOf(filterCareerValue) > -1 || filterCareerValue === '') &&
-                    (division.indexOf(filterDivisionValue) > -1 || filterDivisionValue === '')) {
+                var nameMatch = filterNameValue === '' || folio.includes(filterNameValue) || name.includes(filterNameValue) || apellido.includes(filterNameValue);
+                var careerMatch = filterCareerValue === '' || career === filterCareerValue;
+                var divisionMatch = filterDivisionValue === '' || division === filterDivisionValue;
+
+                if (nameMatch && careerMatch && divisionMatch) {
                     rows[i].style.display = '';
                 } else {
                     rows[i].style.display = 'none';
